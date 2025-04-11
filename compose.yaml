@@ -1,1 +1,58 @@
 services:
+  app:
+    build: .
+    container_name: apep-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+      - kafka
+    networks:
+      - spring-net
+
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    networks:
+      - spring-net
+
+  redis:
+    image: redis:7
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - spring-net
+
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    env_file:
+      - .env
+    networks:
+      - spring-net
+
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    env_file:
+      - .env
+    depends_on:
+      - zookeeper
+    networks:
+      - spring-net
+
+networks:
+  spring-net:
+    driver: bridge
