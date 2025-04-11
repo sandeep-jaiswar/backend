@@ -50,6 +50,7 @@ services:
       - .env
     depends_on:
       - zookeeper
+    restart: always
     networks:
       - spring-net
 
