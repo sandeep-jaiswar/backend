@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")
@@ -38,12 +41,25 @@ public class AuthController {
         }
 
         try {
+            Map<String, Object> attributes = principal.getAttributes();
+            if (attributes == null) {
+                log.error("User attributes are null");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new ApiResponse<>("error", "User attributes not found", null));
+            }
+
             GoogleUserInfo userInfo = new GoogleUserInfo();
-            userInfo.setId(principal.getAttribute("sub"));
-            userInfo.setEmail(principal.getAttribute("email"));
-            userInfo.setName(principal.getAttribute("name"));
-            userInfo.setPicture(principal.getAttribute("picture"));
-            userInfo.setLocale(principal.getAttribute("locale"));
+            userInfo.setId(Optional.ofNullable(attributes.get("sub")).map(Object::toString).orElse(null));
+            userInfo.setEmail(Optional.ofNullable(attributes.get("email")).map(Object::toString).orElse(null));
+            userInfo.setName(Optional.ofNullable(attributes.get("name")).map(Object::toString).orElse(null));
+            userInfo.setPicture(Optional.ofNullable(attributes.get("picture")).map(Object::toString).orElse(null));
+            userInfo.setLocale(Optional.ofNullable(attributes.get("locale")).map(Object::toString).orElse(null));
+
+            if (userInfo.getEmail() == null) {
+                log.error("Email is missing from user attributes");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(new ApiResponse<>("error", "Email not found in user attributes", null));
+            }
 
             return ResponseEntity.ok(
                     new ApiResponse<>("success", "User information retrieved successfully", userInfo));
