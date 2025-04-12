@@ -4,7 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-@Slf4j
 @Component
 public class JwtUtil {
 
@@ -27,6 +27,8 @@ public class JwtUtil {
 
     @Value("${jwt.refresh-expiration}")
     private Long refreshExpiration;
+    
+    private static final Logger log = LogUtil.getLogger(JwtUtil.class);
 
     private Key getSigningKey() {
         if (secret == null || secret.length() < 32) {

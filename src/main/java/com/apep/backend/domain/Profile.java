@@ -20,4 +20,62 @@ public class Profile extends BaseEntity {
     private String profilePicture;
 
     private String location;
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	/**
+	 * @return the bio
+	 */
+	public String getBio() {
+		return bio;
+	}
+
+	/**
+	 * @param bio the bio to set
+	 */
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	/**
+	 * @return the profilePicture
+	 */
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	/**
+	 * @param profilePicture the profilePicture to set
+	 */
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	/**
+	 * @return the location
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * @param location the location to set
+	 */
+	public void setLocation(String location) {
+		this.location = location;
+	}
+    
+    
 }

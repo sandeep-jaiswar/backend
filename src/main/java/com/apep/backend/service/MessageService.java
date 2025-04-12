@@ -1,11 +1,10 @@
 package com.apep.backend.service;
 
-import com.apep.backend.domain.Chat;
-import com.apep.backend.domain.Message;
-import com.apep.backend.domain.User;
-import com.apep.backend.repository.MessageRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import org.slf4j.Logger;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.retry.annotation.Backoff;
@@ -14,15 +13,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
+import com.apep.backend.domain.Chat;
+import com.apep.backend.domain.Message;
+import com.apep.backend.domain.User;
+import com.apep.backend.repository.MessageRepository;
+import com.apep.backend.utils.LogUtil;
 
-@Slf4j
+import lombok.RequiredArgsConstructor;
+
 @Service
 @RequiredArgsConstructor
 public class MessageService {
-    private final MessageRepository messageRepository;
+    private MessageRepository messageRepository;
+    private static final Logger log = LogUtil.getLogger(MessageService.class);
     private static final int MAX_MESSAGE_LENGTH = 1000;
     private static final int BATCH_SIZE = 50;
     private static final int MAX_RETRY_ATTEMPTS = 3;

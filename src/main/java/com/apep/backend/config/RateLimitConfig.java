@@ -18,7 +18,7 @@ public class RateLimitConfig implements WebMvcConfigurer {
 
     @Bean
     public RateLimitFilter rateLimitFilter() {
-        return new RateLimitFilter(redisTemplate);
+        return new RateLimitFilter();
     }
 
     @Override

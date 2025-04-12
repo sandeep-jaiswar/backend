@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class FriendshipService {
-    private final FriendshipRepository friendshipRepository;
+    private FriendshipRepository friendshipRepository;
 
     @Transactional
     public Friendship sendFriendRequest(User user, User friend) {

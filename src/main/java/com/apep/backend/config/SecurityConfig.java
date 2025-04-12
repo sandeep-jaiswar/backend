@@ -109,6 +109,6 @@ public class SecurityConfig {
 
     @Bean
     public GoogleAuthService googleAuthService() {
-        return new GoogleAuthService(userService);
+        return new GoogleAuthService();
     }
 }

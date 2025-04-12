@@ -1,9 +1,8 @@
 package com.apep.backend.infrastructure;
 
-import com.apep.backend.domain.User;
-import com.apep.backend.service.UserService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+
+import org.slf4j.Logger;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -12,19 +11,24 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.Map;
+import com.apep.backend.domain.User;
+import com.apep.backend.service.UserService;
+import com.apep.backend.utils.LogUtil;
 
-@Slf4j
+import lombok.RequiredArgsConstructor;
+
 @Service
 @RequiredArgsConstructor
 public class GoogleAuthService extends DefaultOAuth2UserService {
 
-    private final UserService userService;
+    private final UserService userService = new UserService();
+    private static final Logger log = LogUtil.getLogger(GoogleAuthService.class);
     private static final String OAUTH2_ERROR_CODE = "oauth2_error";
     private static final String EMAIL_REQUIRED_ERROR = "Email is required";
     private static final String OAUTH2_LOGIN_ERROR = "Failed to process Google OAuth login";
     private static final String EMAIL_NOT_VERIFIED_ERROR = "Email is not verified";
     private static final String INVALID_PROVIDER_ERROR = "Invalid OAuth2 provider";
+    
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {

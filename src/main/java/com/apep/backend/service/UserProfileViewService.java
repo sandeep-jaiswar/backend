@@ -17,10 +17,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserProfileViewService {
-    private final UserProfileViewRepository userProfileViewRepository;
-    private final UserService userService;
-    private final MessageService messageService;
-    private final FriendshipService friendshipService;
+    private UserProfileViewRepository userProfileViewRepository;
+    private UserService userService;
+    private MessageService messageService;
+    private FriendshipService friendshipService;
 
     @Cacheable(value = "userProfile", key = "#userId")
     @Transactional(readOnly = true)

@@ -1,23 +1,27 @@
 package com.apep.backend.filter;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
+import com.apep.backend.utils.LogUtil;
 
-@Slf4j
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+
 @RequiredArgsConstructor
 public class RateLimitFilter implements HandlerInterceptor {
 
+    
     private static final int MAX_REQUESTS = 10;
     private static final Duration WINDOW_DURATION = Duration.ofMinutes(1);
-    private final RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
+    private static final Logger log = LogUtil.getLogger(RateLimitFilter.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

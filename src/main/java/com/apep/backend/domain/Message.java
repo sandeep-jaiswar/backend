@@ -58,4 +58,118 @@ public class Message extends BaseEntity {
             throw new IllegalArgumentException("Message content exceeds maximum length of 1000 characters");
         }
     }
+
+	/**
+	 * @return the chat
+	 */
+	public Chat getChat() {
+		return chat;
+	}
+
+	/**
+	 * @param chat the chat to set
+	 */
+	public void setChat(Chat chat) {
+		this.chat = chat;
+	}
+
+	/**
+	 * @return the sender
+	 */
+	public User getSender() {
+		return sender;
+	}
+
+	/**
+	 * @param sender the sender to set
+	 */
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	/**
+	 * @return the content
+	 */
+	public String getContent() {
+		return content;
+	}
+
+	/**
+	 * @param content the content to set
+	 */
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	/**
+	 * @return the isRead
+	 */
+	public boolean isRead() {
+		return isRead;
+	}
+
+	/**
+	 * @param isRead the isRead to set
+	 */
+	public void setRead(boolean isRead) {
+		this.isRead = isRead;
+	}
+
+	/**
+	 * @return the deleted
+	 */
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	/**
+	 * @param deleted the deleted to set
+	 */
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	/**
+	 * @return the timestamp
+	 */
+	public LocalDateTime getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(LocalDateTime timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	/**
+	 * @return the updatedAt
+	 */
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	/**
+	 * @param updatedAt the updatedAt to set
+	 */
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	/**
+	 * @return the version
+	 */
+	public Long getVersion() {
+		return version;
+	}
+
+	/**
+	 * @param version the version to set
+	 */
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+    
+    
 }
